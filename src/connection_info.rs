@@ -7,11 +7,7 @@ fn create_qr_code(url: &String) {
 
     for line in result {
         for bit in line {
-            if bit == true {
-                print!("██")
-            } else {
-                print!("  ")
-            }
+            print!("{}", if bit { "██" } else { "  " });
         }
         print!("\n")
     }
