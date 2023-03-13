@@ -27,9 +27,9 @@ fn generate_header(file: &String) -> HeaderMap {
 
     if let Some(filename) = file.file_name() {
         if let Some(filename) = filename.to_str() {
-            let val = format!("attachement; filename = \"{}\"", filename);
-            if let Ok(d) = HeaderValue::from_str(val.as_str()) {
-                headers.insert("Content-Disposition", d);
+            let val: String = format!("attachement; filename=\"{}\"", filename);
+            if let Ok(header_value) = HeaderValue::from_str(val.as_str()) {
+                headers.insert("Content-Disposition", header_value);
             };
         }
     }
