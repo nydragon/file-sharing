@@ -21,18 +21,28 @@ pub async fn serve_file(ip: IpAddr, port: u16, file: String) {
     warp::serve(router).run((ip, port)).await;
 }
 
-fn generate_header(file: &String) -> HeaderMap {
+/// Returns the name of the file pointed to by a path
+fn get_file_name(file: &String) -> Option<String> {
     let file: &Path = Path::new(&file);
+
+    let filename = file.file_name()?;
+
+    let filename = filename.to_str()?;
+
+    Some(filename.to_string())
+}
+
+/// Generate the response header that instructs the client to download the served file
+fn generate_header(file: &String) -> HeaderMap {
     let mut headers: HeaderMap = HeaderMap::new();
 
-    if let Some(filename) = file.file_name() {
-        if let Some(filename) = filename.to_str() {
-            let val: String = format!("attachement; filename=\"{}\"", filename);
-            if let Ok(header_value) = HeaderValue::from_str(val.as_str()) {
-                headers.insert("Content-Disposition", header_value);
-            };
-        }
-    }
+    let filename: String = get_file_name(file).expect("Couldn't get file name from path.");
+
+    let val: String = format!("attachement; filename=\"{}\"", filename);
+
+    if let Ok(header_value) = HeaderValue::from_str(val.as_str()) {
+        headers.insert("Content-Disposition", header_value);
+    };
 
     headers
 }

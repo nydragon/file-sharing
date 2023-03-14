@@ -17,7 +17,7 @@ fn main() {
 
     let args: Args = Args::parse();
 
-    // implement flag handling to get the file to send
+    //  flag handling to get the file to send
     let ip: IpAddr = local_ip().unwrap();
     let port: u16 = 8080;
     let file: String = String::from(args.filename);
