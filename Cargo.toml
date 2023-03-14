@@ -2,6 +2,7 @@
 name = "file-sharing"
 version = "0.1.0"
 edition = "2021"
+description = "An easy CLI file sharing software for local networks."
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 

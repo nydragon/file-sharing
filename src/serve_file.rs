@@ -5,8 +5,8 @@ use warp::{
     Filter, Rejection, Reply,
 };
 
-use std::path::Path;
 use std::{convert::Infallible, net::IpAddr};
+use std::{ffi::OsStr, path::Path};
 
 #[tokio::main]
 pub async fn serve_file(ip: IpAddr, port: u16, file: String) {
@@ -25,9 +25,9 @@ pub async fn serve_file(ip: IpAddr, port: u16, file: String) {
 fn get_file_name(file: &String) -> Option<String> {
     let file: &Path = Path::new(&file);
 
-    let filename = file.file_name()?;
+    let filename: &OsStr = file.file_name()?;
 
-    let filename = filename.to_str()?;
+    let filename: &str = filename.to_str()?;
 
     Some(filename.to_string())
 }
