@@ -1,6 +1,6 @@
 [package]
 name = "file-sharing"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 description = "An easy CLI file sharing software for local networks."
 license-file = "LICENSE"
